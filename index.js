@@ -30,7 +30,34 @@ app.get('/users/:key', async (req, res) => {
   const item = await db.collection('users').get(key);
   
   res.json(item).end();
-})
+});
+
+// Insere novos eventos
+app.post('/events/:key', async(req, res) => {
+  const key = req.params.key;
+
+  const item = await db.collection('events').set(key, req.body);
+  
+  res.end('ok');
+});
+
+// Atualiza eventos
+app.put('/events/:key', async(req, res) => {
+  const key = req.params.key;
+
+  const item = await db.collection('events').set(key, req.body);
+  
+  res.end('ok');
+});
+
+// Obtem eventos
+app.post('/events/:key', async(req, res) => {
+  const key = req.params.key;
+
+  const items = await db.collection('events').get(key);
+  
+  res.json(items).end();
+});
 
 // Fluxo de autenticação
 app.get('/auth/:key', async (req, res) => {
