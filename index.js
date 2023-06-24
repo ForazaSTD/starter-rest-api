@@ -51,7 +51,7 @@ app.put('/events/:key', async(req, res) => {
 });
 
 // Obtem eventos
-app.post('/events/:key', async(req, res) => {
+app.get('/events/:key', async(req, res) => {
   const key = req.params.key;
 
   const items = await db.collection('events').get(key);
