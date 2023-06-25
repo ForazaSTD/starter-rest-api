@@ -88,6 +88,16 @@ app.post('/auth/:key', async (req, res) => {
   }
 });
 
+// Rota genérica de delete
+app.delete('/:col/:key', async (req, res) => {
+  const col = req.params.col;
+  const key = req.params.key;
+
+  await db.collection(col).delete(key);
+
+  res.end('ok');
+});
+
 // Catch all handler for all other request.
 app.use('*', (req, res) => {
   res.json({ msg: 'no route handler found' }).end();
