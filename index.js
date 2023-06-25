@@ -73,6 +73,21 @@ app.get('/auth/:key', async (req, res) => {
   }
 });
 
+// Insere um novo usuário no fluxo de autenticação
+app.post('/auth/:key', async (req, res) => {
+  const key = req.params.key;
+
+  const item = await db.collection('auth').get(key);
+
+  if(!item){
+    await db.collection('key').set(key, req.body);
+    res.end('ok');
+
+  }else{
+    res.end('Usuário já cadastrado!');
+  }
+});
+
 // Catch all handler for all other request.
 app.use('*', (req, res) => {
   res.json({ msg: 'no route handler found' }).end();
