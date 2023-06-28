@@ -65,6 +65,11 @@ app.get('/auth/:key', async (req, res) => {
 
   const item = await db.collection('auth').get(key);
 
+  if(!item){
+    res.end('null');
+    return;
+  }
+
   if(item.props.password == req.body.password){
     res.json({authenticated: true});
 
@@ -80,7 +85,7 @@ app.post('/auth/:key', async (req, res) => {
   const item = await db.collection('auth').get(key);
 
   if(!item){
-    await db.collection('key').set(key, req.body);
+    await db.collection('auth').set(key, req.body);
     res.end('ok');
 
   }else{
