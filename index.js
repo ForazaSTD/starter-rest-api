@@ -56,7 +56,7 @@ app.get('/events/:key', async(req, res) => {
 
   const items = await db.collection('events').get(key);
   
-  res.json(items).end();
+  res.json(items || {}).end();
 });
 
 // Fluxo de autenticação
